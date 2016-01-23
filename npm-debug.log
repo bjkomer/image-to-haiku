@@ -1,0 +1,195 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'C:\\Program Files (x86)\\nodejs\\\\node.exe',
+1 verbose cli   'C:\\Program Files (x86)\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'install',
+1 verbose cli   '--save-dev',
+1 verbose cli   'http-js' ]
+2 info using npm@2.11.3
+3 info using node@v0.12.7
+4 verbose install initial load of C:\Users\Brent\Documents\GitHub\image-to-haiku\package.json
+5 verbose installManyTop reading scoped package data from C:\Users\Brent\Documents\GitHub\image-to-haiku\node_modules\angular\package.json
+6 verbose installManyTop reading scoped package data from C:\Users\Brent\Documents\GitHub\image-to-haiku\node_modules\express\package.json
+7 info package.json express@3.4.6 No license field.
+8 verbose readDependencies loading dependencies from C:\Users\Brent\Documents\GitHub\image-to-haiku\package.json
+9 silly cache add args [ 'http-js', null ]
+10 verbose cache add spec http-js
+11 silly cache add parsed spec { raw: 'http-js',
+11 silly cache add   scope: null,
+11 silly cache add   name: 'http-js',
+11 silly cache add   rawSpec: '',
+11 silly cache add   spec: '*',
+11 silly cache add   type: 'range' }
+12 silly addNamed http-js@*
+13 verbose addNamed "*" is a valid semver range for http-js
+14 silly addNameRange { name: 'http-js', range: '*', hasData: false }
+15 silly mapToRegistry name http-js
+16 silly mapToRegistry using default registry
+17 silly mapToRegistry registry https://registry.npmjs.org/
+18 silly mapToRegistry uri https://registry.npmjs.org/http-js
+19 verbose addNameRange registry:https://registry.npmjs.org/http-js not in flight; fetching
+20 verbose request uri https://registry.npmjs.org/http-js
+21 verbose request no auth needed
+22 info attempt registry request try #1 at 6:05:34 PM
+23 verbose request id 724572ce55b9571e
+24 http request GET https://registry.npmjs.org/http-js
+25 http 200 https://registry.npmjs.org/http-js
+26 silly get cb [ 200,
+26 silly get   { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+26 silly get     etag: '"CZ8L3Q3XZCVA36JT8O2JXIVUU"',
+26 silly get     'content-type': 'application/json',
+26 silly get     'cache-control': 'max-age=300',
+26 silly get     'content-length': '9597',
+26 silly get     'accept-ranges': 'bytes',
+26 silly get     date: 'Sat, 23 Jan 2016 23:05:35 GMT',
+26 silly get     via: '1.1 varnish',
+26 silly get     age: '0',
+26 silly get     connection: 'keep-alive',
+26 silly get     'x-served-by': 'cache-iad2139-IAD',
+26 silly get     'x-cache': 'MISS',
+26 silly get     'x-cache-hits': '0',
+26 silly get     'x-timer': 'S1453590335.586207,VS0,VE322',
+26 silly get     vary: 'Accept' } ]
+27 verbose get saving http-js to C:\Users\Brent\AppData\Roaming\npm-cache\registry.npmjs.org\http-js\.cache.json
+28 silly addNameRange number 2 { name: 'http-js', range: '*', hasData: true }
+29 silly addNameRange versions [ 'http-js', [ '0.0.0', '0.0.1' ] ]
+30 silly addNamed http-js@0.0.1
+31 verbose addNamed "0.0.1" is a plain semver version for http-js
+32 silly mapToRegistry name http-js
+33 silly mapToRegistry using default registry
+34 silly mapToRegistry registry https://registry.npmjs.org/
+35 silly mapToRegistry uri https://registry.npmjs.org/http-js
+36 verbose addRemoteTarball https://registry.npmjs.org/http-js/-/http-js-0.0.1.tgz not in flight; adding
+37 verbose addRemoteTarball [ 'https://registry.npmjs.org/http-js/-/http-js-0.0.1.tgz',
+37 verbose addRemoteTarball   '93dc2334e741b60b4310cd5bfe03fbd305fa5b56' ]
+38 info retry fetch attempt 1 at 6:05:35 PM
+39 info attempt registry request try #1 at 6:05:35 PM
+40 http fetch GET https://registry.npmjs.org/http-js/-/http-js-0.0.1.tgz
+41 http fetch 200 https://registry.npmjs.org/http-js/-/http-js-0.0.1.tgz
+42 silly fetchAndShaCheck shasum 93dc2334e741b60b4310cd5bfe03fbd305fa5b56
+43 verbose addTmpTarball C:\Users\Brent\AppData\Local\Temp\npm-6396-c193590d\registry.npmjs.org\http-js\-\http-js-0.0.1.tgz not in flight; adding
+44 verbose addTmpTarball already have metadata; skipping unpack for http-js@0.0.1
+45 silly cache afterAdd http-js@0.0.1
+46 verbose afterAdd C:\Users\Brent\AppData\Roaming\npm-cache\http-js\0.0.1\package\package.json not in flight; writing
+47 verbose afterAdd C:\Users\Brent\AppData\Roaming\npm-cache\http-js\0.0.1\package\package.json written
+48 silly install resolved [ { name: 'http-js',
+48 silly install resolved     version: '0.0.1',
+48 silly install resolved     description: 'A HTTP utilities library for client-side applications.',
+48 silly install resolved     homepage: 'https://github.com/jussi-kalliokoski/http.js',
+48 silly install resolved     license: 'MIT',
+48 silly install resolved     authors: [ 'Jussi Kalliokoski <jussi.kalliokoski@gmail.com>' ],
+48 silly install resolved     keywords: [ 'http', 'request', 'browser', 'utilities', 'promises' ],
+48 silly install resolved     bugs: { url: 'https://github.com/jussi-kalliokoski/http.js/issues' },
+48 silly install resolved     main: 'dist/http.js',
+48 silly install resolved     files: [ 'dist' ],
+48 silly install resolved     directories: { test: 'test' },
+48 silly install resolved     scripts:
+48 silly install resolved      { coveralls: 'lcov-result-merger "coverage/*/lcov.info" | COVERALLS_SERVICE_NAME="travis-ci" ./node_modules/.bin/coveralls',
+48 silly install resolved        postinstall: 'bower install',
+48 silly install resolved        prepublish: 'gulp build',
+48 silly install resolved        test: 'gulp test' },
+48 silly install resolved     repository:
+48 silly install resolved      { type: 'git',
+48 silly install resolved        url: 'git://github.com/jussi-kalliokoski/http.js' },
+48 silly install resolved     devDependencies:
+48 silly install resolved      { 'bdd-using': '^0.1.0',
+48 silly install resolved        bower: '^1.3.3',
+48 silly install resolved        coveralls: '^2.10.0',
+48 silly install resolved        gulp: '^3.6.2',
+48 silly install resolved        'gulp-concat': '^2.2.0',
+48 silly install resolved        'gulp-jscs': '^0.5.0',
+48 silly install resolved        'gulp-jshint': '^1.6.1',
+48 silly install resolved        'gulp-karma': '0.0.4',
+48 silly install resolved        karma: '^0.12.16',
+48 silly install resolved        'karma-bdd-using': '^0.1.0',
+48 silly install resolved        'karma-browserstack-launcher': '0.0.8',
+48 silly install resolved        'karma-coverage': '^0.2.1',
+48 silly install resolved        'karma-expect': '^1.1.0',
+48 silly install resolved        'karma-mocha': '^0.1.3',
+48 silly install resolved        'karma-mocha-reporter': '^0.2.5',
+48 silly install resolved        'karma-phantomjs-launcher': '^0.1.4',
+48 silly install resolved        'karma-sinon': '^1.0.3',
+48 silly install resolved        'lcov-result-merger': '0.0.2',
+48 silly install resolved        mocha: '^1.19.0',
+48 silly install resolved        sinon: '^1.10.2' },
+48 silly install resolved     gitHead: 'd90968b36a05030a01f44d1a97b97041e04e1455',
+48 silly install resolved     _id: 'http-js@0.0.1',
+48 silly install resolved     _shasum: '93dc2334e741b60b4310cd5bfe03fbd305fa5b56',
+48 silly install resolved     _from: 'http-js@*',
+48 silly install resolved     _npmVersion: '1.4.14',
+48 silly install resolved     _npmUser:
+48 silly install resolved      { name: 'jussi-kalliokoski',
+48 silly install resolved        email: 'jussi.kalliokoski@gmail.com' },
+48 silly install resolved     maintainers: [ [Object] ],
+48 silly install resolved     dist:
+48 silly install resolved      { shasum: '93dc2334e741b60b4310cd5bfe03fbd305fa5b56',
+48 silly install resolved        tarball: 'http://registry.npmjs.org/http-js/-/http-js-0.0.1.tgz' },
+48 silly install resolved     _resolved: 'https://registry.npmjs.org/http-js/-/http-js-0.0.1.tgz' } ]
+49 info install http-js@0.0.1 into C:\Users\Brent\Documents\GitHub\image-to-haiku
+50 info installOne http-js@0.0.1
+51 verbose installOne of http-js to C:\Users\Brent\Documents\GitHub\image-to-haiku not in flight; installing
+52 verbose lock using C:\Users\Brent\AppData\Roaming\npm-cache\_locks\http-js-ae58ebed995f99b1.lock for C:\Users\Brent\Documents\GitHub\image-to-haiku\node_modules\http-js
+53 silly install write writing http-js 0.0.1 to C:\Users\Brent\Documents\GitHub\image-to-haiku\node_modules\http-js
+54 verbose unbuild node_modules\http-js
+55 silly gentlyRm C:\Users\Brent\Documents\GitHub\image-to-haiku\node_modules\http-js is being purged from base C:\Users\Brent\Documents\GitHub\image-to-haiku
+56 verbose gentlyRm don't care about contents; nuking C:\Users\Brent\Documents\GitHub\image-to-haiku\node_modules\http-js
+57 verbose tar unpack C:\Users\Brent\AppData\Roaming\npm-cache\http-js\0.0.1\package.tgz
+58 verbose tar unpacking to C:\Users\Brent\Documents\GitHub\image-to-haiku\node_modules\http-js
+59 silly gentlyRm C:\Users\Brent\Documents\GitHub\image-to-haiku\node_modules\http-js is being purged
+60 verbose gentlyRm don't care about contents; nuking C:\Users\Brent\Documents\GitHub\image-to-haiku\node_modules\http-js
+61 silly gunzTarPerm modes [ '777', '666' ]
+62 silly gunzTarPerm extractEntry package.json
+63 silly gunzTarPerm modified mode [ 'package.json', 420, 438 ]
+64 silly gunzTarPerm extractEntry README.md
+65 silly gunzTarPerm modified mode [ 'README.md', 420, 438 ]
+66 verbose write writing to C:\Users\Brent\Documents\GitHub\image-to-haiku\node_modules\http-js\package.json
+67 info preinstall http-js@0.0.1
+68 verbose readDependencies loading dependencies from C:\Users\Brent\Documents\GitHub\image-to-haiku\node_modules\http-js\package.json
+69 verbose readDependencies loading dependencies from C:\Users\Brent\Documents\GitHub\image-to-haiku\node_modules\http-js\package.json
+70 silly install resolved []
+71 verbose about to build C:\Users\Brent\Documents\GitHub\image-to-haiku\node_modules\http-js
+72 info build C:\Users\Brent\Documents\GitHub\image-to-haiku\node_modules\http-js
+73 info linkStuff http-js@0.0.1
+74 silly linkStuff http-js@0.0.1 has C:\Users\Brent\Documents\GitHub\image-to-haiku\node_modules as its parent node_modules
+75 verbose linkBins http-js@0.0.1
+76 verbose linkMans http-js@0.0.1
+77 verbose rebuildBundles http-js@0.0.1
+78 info install http-js@0.0.1
+79 info postinstall http-js@0.0.1
+80 verbose unsafe-perm in lifecycle true
+81 info http-js@0.0.1 Failed to exec postinstall script
+82 verbose unlock done using C:\Users\Brent\AppData\Roaming\npm-cache\_locks\http-js-ae58ebed995f99b1.lock for C:\Users\Brent\Documents\GitHub\image-to-haiku\node_modules\http-js
+83 verbose stack Error: http-js@0.0.1 postinstall: `bower install`
+83 verbose stack Exit status 1
+83 verbose stack     at EventEmitter.<anonymous> (C:\Program Files (x86)\nodejs\node_modules\npm\lib\utils\lifecycle.js:213:16)
+83 verbose stack     at EventEmitter.emit (events.js:110:17)
+83 verbose stack     at ChildProcess.<anonymous> (C:\Program Files (x86)\nodejs\node_modules\npm\lib\utils\spawn.js:24:14)
+83 verbose stack     at ChildProcess.emit (events.js:110:17)
+83 verbose stack     at maybeClose (child_process.js:1015:16)
+83 verbose stack     at Process.ChildProcess._handle.onexit (child_process.js:1087:5)
+84 verbose pkgid http-js@0.0.1
+85 verbose cwd C:\Users\Brent\Documents\GitHub\image-to-haiku
+86 error Windows_NT 6.3.9600
+87 error argv "C:\\Program Files (x86)\\nodejs\\\\node.exe" "C:\\Program Files (x86)\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "install" "--save-dev" "http-js"
+88 error node v0.12.7
+89 error npm  v2.11.3
+90 error code ELIFECYCLE
+91 error http-js@0.0.1 postinstall: `bower install`
+91 error Exit status 1
+92 error Failed at the http-js@0.0.1 postinstall script 'bower install'.
+92 error This is most likely a problem with the http-js package,
+92 error not with npm itself.
+92 error Tell the author that this fails on your system:
+92 error     bower install
+92 error You can get their info via:
+92 error     npm owner ls http-js
+92 error There is likely additional logging output above.
+93 verbose exit [ 1, true ]
+94 verbose unbuild node_modules\http-js
+95 info preuninstall http-js@0.0.1
+96 info uninstall http-js@0.0.1
+97 verbose unbuild rmStuff http-js@0.0.1 from C:\Users\Brent\Documents\GitHub\image-to-haiku\node_modules
+98 info postuninstall http-js@0.0.1
+99 silly gentlyRm C:\Users\Brent\Documents\GitHub\image-to-haiku\node_modules\http-js is being purged from base C:\Users\Brent\Documents\GitHub\image-to-haiku
+100 verbose gentlyRm don't care about contents; nuking C:\Users\Brent\Documents\GitHub\image-to-haiku\node_modules\http-js
+101 silly vacuum-fs purging C:\Users\Brent\Documents\GitHub\image-to-haiku\node_modules\http-js
+102 silly vacuum-fs quitting because other entries in C:\Users\Brent\Documents\GitHub\image-to-haiku\node_modules
