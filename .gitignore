@@ -1,5 +1,2 @@
 *.txt
 *.swp
-
-server.js
-node_modules/*
