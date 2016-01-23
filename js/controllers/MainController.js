@@ -28,7 +28,8 @@ app.controller('MainController', ['$scope', '$http', function($scope, $http) {
 		for (i=0; i<3; i++) {
 			syl = 0; //current syllable count
 			while(syl < 5 + (i%2)*2) {
-				haiku[i].push("temp");
+				index = Math.floor(Math.random()*wordList.length);
+				haiku[i].push(wordList[index]);
 				syl += 1;
 			}
 		}
@@ -49,5 +50,6 @@ app.controller('MainController', ['$scope', '$http', function($scope, $http) {
 		//or just assume they are all nouns
 		return 'noun'; //TEMP
 	}
+
 
 }]);
