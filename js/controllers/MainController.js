@@ -1,13 +1,16 @@
 app.controller('MainController', ['$scope', '$http', function($scope, $http) {
 
+
+
 	$scope.haiku = [[],[],[]];
+	$scope.imageTags = ['temp','word','list','hamburger','pizza','octopus'];
 	$scope.image = {
 		url: 'http://www.clarifai.com/img/metro-north.jpg'
 	}
 	//TEMP
 	// do something when the button is clicked
 	$scope.buttonClick = function() {
-		$scope.generateHaiku(['temp','word','list']);
+		$scope.generateHaiku($scope.imageTags);
 	}
 
 	// Generates a Haiku based on the list of words provided
@@ -25,12 +28,17 @@ app.controller('MainController', ['$scope', '$http', function($scope, $http) {
 		}
 
 		//TEMP just return something dumb for now, make it legit later
-		for (i=0; i<3; i++) {
+		for (line=0; line<3; line++) {
 			syl = 0; //current syllable count
-			while(syl < 5 + (i%2)*2) {
+			max_syl = 5 + (line%2)*2; // 5 / 7 / 5
+			while(syl < max_syl) {
 				index = Math.floor(Math.random()*wordList.length);
-				haiku[i].push(wordList[index]);
-				syl += 1;
+				while(syllableList[index] + syl > max_syl) {
+					index = Math.floor(Math.random()*wordList.length);
+				}
+				haiku[line].push(wordList[index]);
+				haiku[line].push(syllableList[index]);
+				syl += syllableList[index];
 			}
 		}
 		$scope.haiku = haiku;
@@ -40,7 +48,13 @@ app.controller('MainController', ['$scope', '$http', function($scope, $http) {
 	$scope.syllables = function (word) {
 		//this could either be a dictionary lookup, 
 		//or use the hyphenation software and split on hyphens: http://alias-i.com/lingpipe/demos/tutorial/hyphenation/read-me.html
-		return 1; //TEMP
+		//return 1; //TEMP
+		//return nlp_compromise.term(word).syllables().length;
+		word = word.toLowerCase();                                     //word.downcase!
+		if(word.length <= 3) { return 1; }                             //return 1 if word.length <= 3
+		word = word.replace(/(?:[^laeiouy]es|ed|[^laeiouy]e)$/, '');   //word.sub!(/(?:[^laeiouy]es|ed|[^laeiouy]e)$/, '')
+		word = word.replace(/^y/, '');                                 //word.sub!(/^y/, '')
+		return word.match(/[aeiouy]{1,2}/g).length;                    //word.scan(/[aeiouy]{1,2}/).size
 	}
 
 	// Returns the part-of-speech tag for a given word
