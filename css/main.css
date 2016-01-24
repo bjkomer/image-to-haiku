@@ -29,10 +29,7 @@ html {
   background-size: cover fixed;
   animation: animatedSeparateImages 80s linear infinite;
   animation-name: animatedSeparateImages;
-  animation-duration: 80s;
-  animation-timing-function: linear;
   animation-delay: initial;
-  animation-iteration-count: infinite;
   animation-direction: initial;
   animation-fill-mode: initial;
   animation-play-state: initial;
