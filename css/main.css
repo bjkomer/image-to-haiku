@@ -1,0 +1,147 @@
+@keyframes animatedSeparateImages {
+  0% {
+    background-position: 0% 0%;
+  }
+  25% {
+    background-position: 100% 100%;
+  }
+   50% {
+    background-position: 100% 0%;
+  }
+  75% {
+    background-position: 0 100%;
+  }
+  200% {
+    background-position: 0 0;
+  }
+}
+
+
+html {
+  background: url('http://conuhacks.io/images/skyline.jpg') no-repeat center center fixed; 
+  position: relative;
+  height: 100%;
+  width: 100%;
+  background: black
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover fixed;
+  animation: animatedSeparateImages 80s linear infinite;
+  animation-name: animatedSeparateImages;
+  animation-duration: 80s;
+  animation-timing-function: linear;
+  animation-delay: initial;
+  animation-iteration-count: infinite;
+  animation-direction: initial;
+  animation-fill-mode: initial;
+  animation-play-state: initial;
+}
+
+.bar {
+  padding-top: 1em;
+  border-top: 3px solid #ff0;
+  border-bottom: 3px solid #ff0;
+  box-shadow: 0px 0px 20px #ff0;
+  margin-top: 1.0em;
+  background-color:transparent;
+  text-align:center;
+}
+
+input[type="text"]
+{
+  background: transparent;
+  border-color: #ff0;
+  text-align: center;
+  box-shadow: 0px 0px 20px #ff0;
+}
+
+input[type="text"]:focus {
+  color:transparent;
+  background: transparent;
+  border-color: #ff0;
+  outline: none;
+  color: #ff0;
+}
+
+.header img { 
+  width: 100px;
+  height: 100px;
+}
+.header h1 {
+
+  display: inline;
+    color: yellow;
+    font-size:72px;
+    font-family:Roboto,sans-serif;
+    font-weight: 200;
+    text-shadow: 0px 0px 20px #ff0;
+}
+
+.header p {
+
+  display: inline;
+    color: yellow;
+    font-size:12px;
+    font-family:Roboto,sans-serif;
+    font-weight: 200;
+    text-shadow: 0 0 20px #ff0;
+}
+
+.center {
+  text-align:center;
+}
+
+
+u {
+  color: white;
+  text-shadow: 0 0 20px white;
+}
+
+button {
+  background-color: transparent;
+  box-shadow: 0px 0px 20px #ff0;
+  border:none;
+  outline: #ff0;
+  font-size: 16px;
+  color: #ff0;
+}
+
+button:hover {
+  background-color: #ff0;
+  box-shadow: 0px 0px 20px #ff0;
+  outline: black;
+  font-size: 16px;
+  color: black;
+}
+
+button:active {
+  background-color: black;
+  box-shadow: 0px 0px 20px #ff0;
+  outline: black;
+  font-size: 16px;
+  color: #ff0;
+}
+
+.image {
+  float:left;
+  margin-left: 15px;
+  margin-top: 5px;
+  margin-bottom: 25px;
+  padding:3px;
+  border:2px solid #ff0;
+  background-color: transparent;
+  box-shadow: 0px 0px 15px #ff0;
+}
+
+textarea#styled {
+  margin-left: 120px;
+  margin-top: 5px;
+  width: 600px;
+  height: 350px;
+  border: 2px solid #ff0;
+  padding: 3px;
+  font-family: Roboto, sans-serif;
+  background-color: transparent;
+  box-shadow: 0px 0px 15px #ff0;
+}

@@ -14,23 +14,40 @@
     <script src="js/angular.min.js"></script>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/main.css" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
 
 </head>
 
 <body ng-app="HaikuApp">
 
+<br>
+<div class = "header";  align = "center";>
+    <h1 align="center";>&nbsp;&nbsp;&nbsp;&nbsp;<u><h1>Image To Haiku</h1></u>
+    <img src="http://conuhacks.io/images/logo.svg" alt="ConUHacks" style="width:150px;height:112.5px;"></h1><br>
+</div>
+<div class = "center"><br>
+    <input type="text" name="image" ng-model="image.url" placeholder="Enter Image URL">
+</div>
 
-	<!-- Page Content -->
-    <div class="container" ng-controller="MainController">
-		<input type="text" name="image" ng-model="image.url">
-		<button type="button" ng-click="buttonClick()">Make me a Haiku!</button>
-		<!--<p ng-repeat="line in haiku">{{line.join(" ")}}<p>-->
-		<p id='one'></p>
-		<p id='two'></p>
-		<p id='three'></p>
-    </div>
-    
-	<!-- jQuery Version 1.11.1 -->
+<div class="bar">
+    <button type="button" ng-click="buttonClick()">Make me a Haiku!</button>
+    <p ng-repeat="line in haiku">{{line.join(" ")}}<p>
+</div><br>  
+
+<img class="image" src="#" alt="Image" height="350" width="600">
+<textarea name="styled-textarea"; id="styled" onfocus="this.value=''"; onblur="setbg('white')"></textarea>
+
+<br>
+<p class="bar"></p>
+<div align="center">
+    <img src="http://www.clarifai.com/static/img_ours/logo-dark-RGB.png" alt="Image" height="82" width="287">
+
+    <img align="center" src="https://nms.nuancehdp.com/NMCHTML/Images/Nuance_Logo.png" alt="Image" height="140" width="330">
+
+    <img src="http://conuhacks.io/images/logo.svg" alt="Image" height="82" width="100">
+</div>  
+	
+    <!-- jQuery Version 1.11.1 -->
     <script src="js/jquery.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
