@@ -10,6 +10,7 @@ app.controller('MainController', ['$scope', '$http', function($scope, $http) {
 	$scope.buttonClick = function() {
 		//$scope.generateHaiku($scope.imageTags);
 		//Clarifai.tagURL( $scope.image.url , "haiku", commonResultHandler );
+
 		var authToken = 'RJS4dizHZwmadpm55Jq5GW7BFmHgOw';
 		var dataJson = {'url' : $scope.image.url};
 		$.ajax({
@@ -89,6 +90,7 @@ app.controller('MainController', ['$scope', '$http', function($scope, $http) {
 			haiku[line].push($scope.S(max_syl)); //TEMP
 		}
 		$scope.haiku = haiku;
+		playAudio();
 	}
 
 	$scope.getStructureMap = function(max_syl, possibleSyllables) {
@@ -259,5 +261,201 @@ app.controller('MainController', ['$scope', '$http', function($scope, $http) {
 		//or just assume they are all nouns
 		return 'noun'; //TEMP
 	}
+
+
+	// START - YOU WILL NEED TO OVERWRITE THESE VALUES
+// Nina WebSocket Server
+var host = "nim-rd.nuance.mobi";
+var port = 8885;
+var path = "nina-websocket-api/nina";
+
+// For the NinaStartSession CONNECT message
+var nmaid = "ConUHackCo020_ConUHackApp020_20160112_213505"//"conuhack020@cmardini.33mail.com";
+var nmaidKey = "71c3d8501e0b6ce032cdeb2f0ce2c12b94e70737d531368a562d2f4925b02532e6ee40b27177a6564b848bcf87cf552db2f8274e821c473f5bdfbf4bddbebfdc"//"o5YBz9w3";
+
+// For the NinaStartSession COMMAND message
+var appName = "ConUHackApp023zzz";
+var companyName = "ConUHackCo023";
+var appVersion = "0.0";
+// END - YOU WILL NEED TO OVERWRITE THESE VALUES
+
+
+
+// Messages templates
+var message_connect = {connect: {nmaid: nmaid, nmaidKey: nmaidKey}};
+var message_start = {command: {name: "NinaStartSession", appName: appName, companyName: companyName, appVersion: appVersion}};
+var message_end = {command: {name: "NinaEndSession"}};
+
+// Audio handlers
+var audioContext = initAudioContext();
+var audioPlayer = new AudioPlayer(audioContext); // For the play audio command
+
+
+// The WebSocket
+$scope.socket;
+
+
+
+$scope.initWebSocket = function() {
+
+    $scope.socket = new WebSocket("wss://" + host + ":" + port + "/" + path); // The WebSocket must be secure "wss://"
+    $scope.socket.binaryType = "arraybuffer"; // Important for receiving audio
+
+
+
+    $scope.socket.onopen = function () {
+        console.log("WebSocket connection opened.");
+
+        $scope.socket.send(JSON.stringify(message_connect));
+        $scope.socket.send(JSON.stringify(message_start));
+    };
+    
+    $scope.socket.onclose = function () {
+        console.log("WebSocket connection closed.");
+    };
+
+    $scope.socket.onmessage = function (event) {
+
+        if (isOfType("ArrayBuffer", event.data)) { // The play audio command will return ArrayBuffer data to be played
+            audioPlayer.play(event.data);
+
+        } else { // event.data should be text and you can parse it
+            var response = JSON.parse(event.data);
+
+            if (response.QueryResult) {
+
+                if (response.QueryResult.result_type === "NinaStartSession") {
+                    //ui_sessionHasStarted();
+
+                //} else if (response.QueryResult.result_type === "NinaEndSession") {
+                    //ui_sessionHasEnded();
+
+                    //$scope.socket.close();
+                    //$scope.socket = undefined;
+
+                //} else if (response.QueryResult.result_type === "NinaDoNLU") {
+                    //ui_displayNLUresults(response.QueryResult.nlu_results);
+                    
+                } else if (response.QueryResult.result_type === "NinaDoSpeechReco") {
+                    $('#speechreco_results').text(JSON.stringify(response));
+                }
+                
+            } else if (response.QueryRetry) {
+                $('#speechreco_results').text(JSON.stringify(response));
+            }
+        }
+    };
+}
+
+$scope.startSession = function() {
+    //ui_startSession();
+
+    if ($scope.socket === undefined) {
+        $scope.initWebSocket();
+    }
+}
+
+$scope.endSession = function() {
+    //ui_endSession();
+    console.log("end session was called");
+    $scope.socket.send(JSON.stringify(message_end));
+}
+
+function nlu() {
+    var inputText = fixLineBreaks($("#nlu_text").val());
+
+
+
+        //ui_clearNLUresults();
+
+        $scope.socket.send(JSON.stringify({
+            command: {
+                name: "NinaDoNLU",
+                text: inputText
+            }
+        }));
+
+}
+
+function playAudio() {
+    var inputText = $scope.haiku[0]+$scope.haiku[1]+$scope.haiku[2];//fixLineBreaks($("#playaudio_text").val());
+
+
+        $scope.socket.send(JSON.stringify({
+            command: {
+                name: "NinaPlayAudio",
+                text: inputText
+            }
+        }));
+}
+
+
+
+
+var audioRecorder;
+var shouldStopRecording = true;
+
+
+function stopRecording() {
+    //ui_stopRecording();
+    
+    shouldStopRecording = true;    
+    
+    audioRecorder.stop();
+    audioRecorder = undefined;
+    
+    $scope.socket.send(JSON.stringify({
+        endcommand: {}
+    }));
+}
+
+function startRecording() {
+    //ui_startRecording();
+    
+    $scope.socket.send(JSON.stringify({
+        command: {
+            name: "NinaDoSpeechReco"
+        }
+    }));
+    
+    shouldStopRecording = false;  
+    console.log("Recorder started.");
+
+    // IMPORTANT Make sure you create a new AudioRecorder before you start recording to avoid any bugs !!!
+    audioRecorder = new AudioRecorder(audioContext);
+    
+    audioRecorder.start().then(
+            
+            // This callback is called when "def.resolve" is called in the AudioRecorder.
+            // def.resolve
+            function () {
+                console.log("Recorder stopped.");
+            },
+            
+            // def.reject
+            function () {
+                console.log("Recording failed!!!");
+            },
+            
+            // def.notify
+            function (data) { // When the recorder receives audio data
+                console.log("Audio data received...");
+                
+                if (shouldStopRecording) {
+                    return;
+                }
+
+                // tuple: [encodedSpx, ampArray]
+                //   resampled audio as Int16Array 
+                //   amplitude data as Uint8Array
+                var frames = data[0]; // Int16Array
+
+                $scope.socket.send(frames.buffer);
+            }
+    );
+}
+
+$scope.startSession();
+
 
 }]);
