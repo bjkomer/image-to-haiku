@@ -1,7 +1,7 @@
 app.controller('MainController', ['$scope', '$http', function($scope, $http) {
 
 	$scope.haiku = [[],[],[]];
-	$scope.imageTags = ['temp','word','list','hamburger','pizza','octopus'];
+	//$scope.imageTags = ['temp','word','list','hamburger','pizza','octopus'];
 	$scope.image = {
 		url: 'http://www.clarifai.com/img/metro-north.jpg'
 	}
@@ -9,7 +9,49 @@ app.controller('MainController', ['$scope', '$http', function($scope, $http) {
 	// do something when the button is clicked
 	$scope.buttonClick = function() {
 		//$scope.generateHaiku($scope.imageTags);
-		Clarifai.tagURL( $scope.image.url , "haiku", commonResultHandler );
+		//Clarifai.tagURL( $scope.image.url , "haiku", commonResultHandler );
+		var authToken = 'RJS4dizHZwmadpm55Jq5GW7BFmHgOw';
+		var dataJson = {'url' : $scope.image.url};
+		$.ajax({
+			url: 'https://api.clarifai.com/v1/tag/',
+			type: 'POST',
+			beforeSend: function (xhr) {
+				xhr.setRequestHeader('Authorization', 'bearer ' + authToken);
+			},
+
+			data: dataJson,
+			dataType: 'json',
+
+			success: function (object) {
+				$.each(object.results, function(curr, results) {
+					var tags = results.result.tag.classes;
+					$scope.generateHaiku(tags);
+					/*
+					var name = 'tagOverlay' + incr;
+					incr++;
+					var hamlAlt = "<div class='clari_overlay' id='"+ name + "'>";
+					$.each(tags, function(curr2, tag) {
+						htmlAlt += "<div class='clari_tag'>" + tag + "</div>";
+					});
+					htmlAlt += "</div>";
+
+					$(that).after(htmlAlt);
+					var destination = $(that).offset();
+					$('#'+name).width($(that).width);
+					$('#'+name).css({top: destination.top, left: destination.left});
+					*/
+				});
+				console.log("success!");
+				return;
+			},
+			error:function(err) {
+				console.log("fail: ajax");
+				return;
+			},
+		});
+
+
+
 	}
 
 	// Generates a Haiku based on the list of words provided
