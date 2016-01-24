@@ -120,9 +120,14 @@ button:active {
   color: #ff0;
 }
 
+.haiku {
+  color:yellow;
+}
+
 .image {
+  display: block;
   float:left;
-  margin-left: 15px;
+  margin-left: 360px;
   margin-top: 5px;
   margin-bottom: 25px;
   padding:3px;
