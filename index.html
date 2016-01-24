@@ -24,7 +24,10 @@
     <div class="container" ng-controller="MainController">
 		<input type="text" name="image" ng-model="image.url">
 		<button type="button" ng-click="buttonClick()">Make me a Haiku!</button>
-		<p ng-repeat="line in haiku">{{line.join(" ")}}<p>
+		<!--<p ng-repeat="line in haiku">{{line.join(" ")}}<p>-->
+		<p id='one'></p>
+		<p id='two'></p>
+		<p id='three'></p>
     </div>
     
 	<!-- jQuery Version 1.11.1 -->

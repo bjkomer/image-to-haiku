@@ -5,6 +5,33 @@ app.controller('MainController', ['$scope', '$http', function($scope, $http) {
 	$scope.image = {
 		url: 'http://www.clarifai.com/img/metro-north.jpg'
 	}
+
+	$scope.randomWords = {
+		'noun':{
+			1:['dog'],
+			2:['dresser'],
+			3:['catapult'],
+			4:['experiment']
+		},
+		'verb':{
+			1:['throw'],
+			2:['compare'],
+			3:['multiply'],
+			4:['congratulate']
+		},
+		'adjective':{
+			1:['clean'],
+			2:['pretty'],
+			3:['similar'],
+			4:['necessary']
+		},
+		'adverb':{
+			1:['fresh'],
+			2:['ago'],
+			3:['together'],
+			4:['especially']
+		}
+	}
 	
 	// do something when the button is clicked
 	$scope.buttonClick = function() {
@@ -36,6 +63,7 @@ app.controller('MainController', ['$scope', '$http', function($scope, $http) {
 				return;
 			},
 		});
+
 	}
 
 	// Generates a Haiku based on the list of words provided
@@ -51,6 +79,14 @@ app.controller('MainController', ['$scope', '$http', function($scope, $http) {
 			adverb: [false, false, false, false]
 		}
 
+		tagWords = {
+			'noun':[],
+			'verb':[],
+			'adjective':[],
+			'adverb':[]
+		}
+
+
 		// contains each of the three lines of the haiku
 		haiku = [[],[],[]];
 		
@@ -62,20 +98,123 @@ app.controller('MainController', ['$scope', '$http', function($scope, $http) {
 
 				if (syllables < 5) {
 					possibleSyllables[posTag][syllables] = true;
+				} else {
+					posTag = 'noun';
 				}
 
-				syllableList.push(syllables);
-				posTagList.push(posTag);
-				words.push(wordList[i]);
+				tagWords[posTag].push([wordList[i], syllables])
+
+				//syllableList.push(syllables);
+				//posTagList.push(posTag);
+				//words.push(wordList[i]);
 			}
 		}
 
+		map = ['noun', 'verb', 'adjective', 'adverb']
+
+		for (i=0;i<30;i++){
+			for (j=0;j<4;j++) {
+				syl =  Math.floor(Math.random()*4+1)
+				tagWords[map[j]].push([$scope.getRandomWord(map[j], syl), syl]);
+			}
+		}
+
+		syllables_left = [5,7,5];
+		for (i=0;i<Math.min(tagWords['verb'].length,3);i++) {
+			haiku[i].push(tagWords['verb'][i][0]);
+			syllables_left[i] -= tagWords['verb'][i][1];
+		}
+
+		for (i=0;i<Math.min(tagWords['noun'].length,3);i++) {
+			if (syllables_left[i] >= tagWords['noun'][i][1]) {
+				haiku[i].unshift(tagWords['noun'][i][0]);
+				syllables_left[i] -= tagWords['noun'][i][1];
+				if (syllables_left[i] == 0) {
+					continue;
+				}
+			} else {
+				var needRandom = true;
+				for (j=2;j<tagWords['noun'].length;j++) {
+					if (syllables_left[i] >= tagWords['noun'][j][1]) {
+						haiku[i].unshift(tagWords['noun'][j][0]);
+						syllables_left[i] -= tagWords['noun'][j][1];
+						needRandom = false;
+						break;
+					}
+				}
+				if (needRandom) {
+					// get random word of specific syllables
+					console.log(i);
+					console.log(syllables_left);
+					haiku[i].unshift($scope.getRandomWord('noun',Math.min(syllables_left[i],4)));
+				}
+			}
+		}
+
+		for (i=0;i<Math.min(tagWords['adjective'].length,3);i++) {
+			if (syllables_left[i] == 0) {
+				continue;
+			}
+			if (syllables_left[i] >= tagWords['adjective'][i][1]) {
+				haiku[i].unshift(tagWords['adjective'][i][0]);
+				syllables_left[i] -= tagWords['adjective'][i][1];
+				if (syllables_left[i] == 0) {
+					continue;
+				}
+			} else {
+				var needRandom = true;
+				for (j=2;j<tagWords['adjective'].length;j++) {
+					if (syllables_left[i] >= tagWords['adjective'][j][1]) {
+						haiku[i].unshift(tagWords['adjective'][j][0]);
+						syllables_left[i] -= tagWords['adjective'][j][1];
+						needRandom = false;
+						break;
+					}
+				}
+				if (needRandom) {
+					// get random word of specific syllables
+					haiku[i].unshift($scope.getRandomWord('adjective',Math.min(syllables_left[i],4)));
+				}
+			}
+		}
+
+
+		for (i=0;i<Math.min(tagWords['adverb'].length,3);i++) {
+			if (syllables_left[i] == 0) {
+				continue;
+			}
+			if (syllables_left[i] >= tagWords['adverb'][i][1]) {
+				haiku[i].push(tagWords['adverb'][i][0]);
+				syllables_left[i] -= tagWords['adverb'][i][1];
+				if (syllables_left[i] == 0) {
+					continue;
+				}
+			} else {
+				var needRandom = true;
+				for (j=2;j<tagWords['adverb'].length;j++) {
+					if (syllables_left[i] >= tagWords['adverb'][j][1]) {
+						haiku[i].push(tagWords['adverb'][j][0]);
+						syllables_left[i] -= tagWords['adverb'][j][1];
+						needRandom = false;
+						break;
+					}
+				}
+				if (needRandom) {
+					// get random word of specific syllables
+					
+					haiku[i].push($scope.getRandomWord('adverb',Math.min(syllables_left[i],4)));
+				}
+			}
+		}
+
+
+		/*
 		//TEMP just return something dumb for now, make it legit later
 		for (line=0; line<3; line++) {
 			syl = 0; //current syllable count
 			max_syl = 5 + (line%2)*2; // 5 / 7 / 5
-			/*
-			structureMap = $scope.getStructureMap(max_syl, possibleSyllables)
+			
+			//structureMap = $scope.getStructureMap(max_syl, possibleSyllables)
 			while(syl < max_syl) {
 				index = Math.floor(Math.random()*words.length);
 				while(syllableList[index] + syl > max_syl) {
@@ -85,12 +224,22 @@ app.controller('MainController', ['$scope', '$http', function($scope, $http) {
 				haiku[line].push(syllableList[index]);
 				syl += syllableList[index];
 			}
-			*/
+			
 			//console.log(max_syl);
 			haiku[line].push($scope.S(max_syl)); //TEMP
 		}
+		*/
 		$scope.haiku = haiku;
-		playAudio();
+		playAudio(haiku);
+	}
+
+	$scope.getRandomWord = function(pos, syl) {
+		console.log(pos);
+		console.log(syl);
+		console.log($scope.randomWords);
+		console.log($scope.randomWords[pos][syl]);
+		wordList = $scope.randomWords[pos][syl];
+		return wordList[Math.floor(Math.random()*wordList.length)];
 	}
 
 	$scope.getStructureMap = function(max_syl, possibleSyllables) {
@@ -377,8 +526,8 @@ function nlu() {
 
 }
 
-function playAudio() {
-    var inputText = $scope.haiku[0]+$scope.haiku[1]+$scope.haiku[2];//fixLineBreaks($("#playaudio_text").val());
+function playAudio(haiku) {
+    var inputText = haiku[0]+haiku[1]+haiku[2];//fixLineBreaks($("#playaudio_text").val());
 
 
         $scope.socket.send(JSON.stringify({
