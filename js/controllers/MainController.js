@@ -32,6 +32,14 @@ app.controller('MainController', ['$scope', '$http', function($scope, $http) {
 			4:['especially']
 		}
 	}
+
+	$http.get('data/words.json')
+		.success(function(data) {
+			$scope.randomWords = data;
+		})
+		.error(function(data) {
+			$scope.randomWords = null;
+	});
 	
 	// do something when the button is clicked
 	$scope.buttonClick = function() {
