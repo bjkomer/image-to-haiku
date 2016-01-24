@@ -46,7 +46,7 @@ app.controller('MainController', ['$scope', '$http', function($scope, $http) {
 		//$scope.generateHaiku($scope.imageTags);
 		//Clarifai.tagURL( $scope.image.url , "haiku", commonResultHandler );
 
-		var authToken = 'RJS4dizHZwmadpm55Jq5GW7BFmHgOw';
+		var authToken = 'G4JvYMnUc6Ds3YPGRVBkpCpS0ICuZn';//'RJS4dizHZwmadpm55Jq5GW7BFmHgOw';
 		var dataJson = {'url' : $scope.image.url};
 		$.ajax({
 			url: 'https://api.clarifai.com/v1/tag/',
