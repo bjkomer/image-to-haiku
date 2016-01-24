@@ -246,6 +246,9 @@ app.controller('MainController', ['$scope', '$http', function($scope, $http) {
 		document.getElementById('haiku2').innerHTML = haiku[1].join(" ");
 		document.getElementById('haiku3').innerHTML = haiku[2].join(" ");
 		playAudio(haiku);
+		//playAudio(haiku[0]);
+		//playAudio(haiku[1]);
+		//playAudio(haiku[2]);
 	}
 
 	$scope.getRandomWord = function(pos, syl) {
@@ -539,7 +542,8 @@ function nlu() {
 
 function playAudio(haiku) {
     //var inputText = haiku[0]+'\x1B'+haiku[1]+'\x1B'+haiku[2];//fixLineBreaks($("#playaudio_text").val());
-	var inputText = haiku[0]+haiku[1]+haiku[2];
+	var inputText = haiku[0]+". "+haiku[1]+". "+haiku[2];
+	//var inputText = haiku;
 
         $scope.socket.send(JSON.stringify({
             command: {
